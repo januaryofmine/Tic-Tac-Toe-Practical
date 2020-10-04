@@ -45,6 +45,12 @@ function reducer(state, action) {
         ...state,
         gameState: gameState,
       };
+    case ACTION.SET_NEXT_PLAYER:
+      const nextPlayer = state.currentPlayer === "X" ? "O" : "X";
+      return {
+        ...state,
+        currentPlayer: nextPlayer,
+      };
     case ACTION.RESTART:
       return initialState;
     default:

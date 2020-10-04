@@ -19,5 +19,7 @@ Repository for a [Dev.to article](https://dev.to/bornasepic/pure-and-simple-tic-
     3.1 Complex State
         -> need state management
 
-        3.1.1: DONE Basic (12h53am - 1h50am)
-        3.1.2: Add Constant & Selector (1h50am - 2h16am)
+        3.1.1: Basic (DONE) (12h53am - 1h50am)
+        3.1.2: Add Constant & Selector (DONE) (1h50am - 2h16am)
+
+    3.2 Refactor core logic of tic tac toe (DONE) (2h16am - 2h41am)
