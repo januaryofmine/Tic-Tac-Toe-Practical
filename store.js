@@ -1,5 +1,6 @@
 import { ACTION } from "./const.js";
 
+// INITIAL STATE
 const initialState = {
   gameActive: true,
   currentPlayer: "X",
@@ -19,6 +20,7 @@ function createStore(reducer, initialState) {
   return { getState, dispatch };
 }
 
+// REDUCER
 function reducer(state, action) {
   switch (action.type) {
     case ACTION.SET_GAME_ACTIVE:
@@ -48,6 +50,17 @@ function reducer(state, action) {
   }
 }
 
-const store = createStore(reducer, initialState);
+export const store = createStore(reducer, initialState);
 
-export default store;
+// SELECTOR
+export function getCurrentPlayer() {
+  return store.getState().currentPlayer;
+}
+
+export function getGameActive() {
+  return store.getState().gameActive;
+}
+
+export function getGameState() {
+  return store.getState().gameState;
+}

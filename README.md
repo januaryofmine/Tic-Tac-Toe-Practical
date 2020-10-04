@@ -20,3 +20,4 @@ Repository for a [Dev.to article](https://dev.to/bornasepic/pure-and-simple-tic-
         -> need state management
 
         3.1.1: DONE Basic (12h53am - 1h50am)
+        3.1.2: Add Constant & Selector (1h50am - 2h16am)

@@ -1,4 +1,9 @@
-import store from "./store.js";
+import {
+  store,
+  getCurrentPlayer,
+  getGameActive,
+  getGameState,
+} from "./store.js";
 import {
   ACTION,
   WINNING_CONDITIONS,
@@ -8,32 +13,32 @@ import {
 } from "./const.js";
 
 const statusDisplay = document.querySelector(".game--status");
-statusDisplay.innerHTML = currentPlayerTurn(store.getState().currentPlayer);
+statusDisplay.innerHTML = currentPlayerTurn(getCurrentPlayer());
 
 function handleCellPlayed(clickedCell, clickedCellIndex) {
   store.dispatch({
     type: ACTION.SET_GAME_CELL_STATE,
     payload: clickedCellIndex,
   });
-  clickedCell.innerHTML = store.getState().currentPlayer;
+  clickedCell.innerHTML = getCurrentPlayer();
 }
 
 function handlePlayerChange() {
-  const nextPlayer = store.getState().currentPlayer === "X" ? "O" : "X";
+  const nextPlayer = getCurrentPlayer() === "X" ? "O" : "X";
   store.dispatch({
     type: ACTION.SET_CURRENT_PLAYER,
     payload: nextPlayer,
   });
-  statusDisplay.innerHTML = currentPlayerTurn(store.getState().currentPlayer);
+  statusDisplay.innerHTML = currentPlayerTurn(getCurrentPlayer());
 }
 
 function handleResultValidation() {
   let roundWon = false;
   for (let i = 0; i <= 7; i++) {
     const winCondition = WINNING_CONDITIONS[i];
-    let a = store.getState().gameState[winCondition[0]];
-    let b = store.getState().gameState[winCondition[1]];
-    let c = store.getState().gameState[winCondition[2]];
+    let a = getGameState()[winCondition[0]];
+    let b = getGameState()[winCondition[1]];
+    let c = getGameState()[winCondition[2]];
     if (a === "" || b === "" || c === "") {
       continue;
     }
@@ -44,7 +49,7 @@ function handleResultValidation() {
   }
 
   if (roundWon) {
-    statusDisplay.innerHTML = winningMessage(store.getState().currentPlayer);
+    statusDisplay.innerHTML = winningMessage(getCurrentPlayer());
     store.dispatch({
       type: ACTION.SET_GAME_ACTIVE,
       payload: false,
@@ -53,7 +58,7 @@ function handleResultValidation() {
     return;
   }
 
-  let roundDraw = !store.getState().gameState.includes("");
+  let roundDraw = !getGameState().includes("");
   if (roundDraw) {
     statusDisplay.innerHTML = drawMessage();
     store.dispatch({
@@ -72,10 +77,7 @@ function handleCellClick(clickedCellEvent) {
     clickedCell.getAttribute("data-cell-index")
   );
 
-  if (
-    store.getState().gameState[clickedCellIndex] !== "" ||
-    !store.getState().gameActive
-  ) {
+  if (getGameState()[clickedCellIndex] !== "" || !getGameActive()) {
     return;
   }
 
@@ -96,7 +98,7 @@ function handleRestartGame() {
     type: ACTION.SET_GAME_STATE,
     payload: ["", "", "", "", "", "", "", "", ""],
   });
-  statusDisplay.innerHTML = currentPlayerTurn(store.getState().currentPlayer);
+  statusDisplay.innerHTML = currentPlayerTurn(getCurrentPlayer());
   document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
 }
 
