@@ -24,4 +24,6 @@ Repository for a [Dev.to article](https://dev.to/bornasepic/pure-and-simple-tic-
 
     3.2 Refactor core logic of tic tac toe (DONE) (2h16am - 2h41am)
 
-    3.3 Add undo feature
+    3.3 Add undo feature (DONE) (2h41am - 3h26am)
+
+    Total: 12h53am  - 3h26am = 3h33p
