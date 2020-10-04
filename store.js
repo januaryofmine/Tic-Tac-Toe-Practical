@@ -45,6 +45,8 @@ function reducer(state, action) {
         ...state,
         gameState: gameState,
       };
+    case ACTION.RESTART:
+      return initialState;
     default:
       return state;
   }

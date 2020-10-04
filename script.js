@@ -87,16 +87,8 @@ function handleCellClick(clickedCellEvent) {
 
 function handleRestartGame() {
   store.dispatch({
-    type: ACTION.SET_GAME_ACTIVE,
+    type: ACTION.RESTART,
     payload: true,
-  });
-  store.dispatch({
-    type: ACTION.SET_CURRENT_PLAYER,
-    payload: "X",
-  });
-  store.dispatch({
-    type: ACTION.SET_GAME_STATE,
-    payload: ["", "", "", "", "", "", "", "", ""],
   });
   statusDisplay.innerHTML = currentPlayerTurn(getCurrentPlayer());
   document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
