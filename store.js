@@ -1,3 +1,5 @@
+import { ACTION } from "./const.js";
+
 const initialState = {
   gameActive: true,
   currentPlayer: "X",
@@ -19,22 +21,22 @@ function createStore(reducer, initialState) {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "SET_GAME_ACTIVE":
+    case ACTION.SET_GAME_ACTIVE:
       return {
         ...state,
         gameActive: action.payload,
       };
-    case "SET_CURRENT_PLAYER":
+    case ACTION.SET_CURRENT_PLAYER:
       return {
         ...state,
         currentPlayer: action.payload,
       };
-    case "SET_GAME_STATE":
+    case ACTION.SET_GAME_STATE:
       return {
         ...state,
         gameState: action.payload,
       };
-    case "SET_GAME_CELL_STATE":
+    case ACTION.SET_GAME_CELL_STATE:
       const gameState = state.gameState.slice();
       gameState[action.payload] = state.currentPlayer;
       return {
