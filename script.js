@@ -3,6 +3,7 @@ import {
   getCurrentPlayer,
   getGameActive,
   getGameState,
+  getGameHistory,
 } from "./store.js";
 import {
   ACTION,
@@ -33,9 +34,10 @@ function handlePlayerChange() {
 function handleResultValidation() {
   let roundWon = false;
   for (const condition of WINNING_CONDITIONS) {
-    let a = getGameState()[condition[0]];
-    let b = getGameState()[condition[1]];
-    let c = getGameState()[condition[2]];
+    const gameState = getGameState();
+    let a = gameState[condition[0]];
+    let b = gameState[condition[1]];
+    let c = gameState[condition[2]];
     if (a === b && b === c && a !== "") {
       roundWon = true;
       break;
@@ -66,7 +68,7 @@ function handleResultValidation() {
 }
 
 function handleCellClick(clickedCellEvent) {
-  // 1. Get index of cell 
+  // 1. Get index of cell
   const clickedCell = clickedCellEvent.target;
   const clickedCellIndex = parseInt(
     clickedCell.getAttribute("data-cell-index")
@@ -79,7 +81,7 @@ function handleCellClick(clickedCellEvent) {
 
   // 3. Handle cell change
   handleCellPlayed(clickedCell, clickedCellIndex);
-  
+
   // 4. Check if have winner or not
   handleResultValidation();
 }
@@ -94,9 +96,24 @@ function handleRestartGame() {
   document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
 }
 
+function handleUndo() {
+  // Check if have data to undo or not
+  if (getGameHistory().length > 1) {
+    store.dispatch({
+      type: ACTION.UNDO,
+      payload: true,
+    });
+    const gameState = getGameState();
+    document
+      .querySelectorAll(".cell")
+      .forEach((cell, i) => (cell.innerHTML = gameState[i]));
+  } else handleRestartGame();
+}
+
 document
   .querySelectorAll(".cell")
   .forEach((cell) => cell.addEventListener("click", handleCellClick));
 document
   .querySelector(".game--restart")
   .addEventListener("click", handleRestartGame);
+document.querySelector(".game--undo").addEventListener("click", handleUndo);

@@ -23,3 +23,5 @@ Repository for a [Dev.to article](https://dev.to/bornasepic/pure-and-simple-tic-
         3.1.2: Add Constant & Selector (DONE) (1h50am - 2h16am)
 
     3.2 Refactor core logic of tic tac toe (DONE) (2h16am - 2h41am)
+
+    3.3 Add undo feature

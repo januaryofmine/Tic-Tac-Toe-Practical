@@ -5,6 +5,7 @@ const initialState = {
   gameActive: true,
   currentPlayer: "X",
   gameState: ["", "", "", "", "", "", "", "", ""],
+  history: [],
 };
 
 function createStore(reducer, initialState) {
@@ -47,9 +48,24 @@ function reducer(state, action) {
       };
     case ACTION.SET_NEXT_PLAYER:
       const nextPlayer = state.currentPlayer === "X" ? "O" : "X";
+      const step = {
+        gameState: state.gameState,
+        gameActive: state.gameActive,
+      };
       return {
         ...state,
         currentPlayer: nextPlayer,
+        history: [].concat(state.history, step),
+      };
+    case ACTION.UNDO:
+      const prevPlayer = state.currentPlayer === "X" ? "O" : "X";
+      const prevMoves = state.history.slice(0, -1);
+
+      return {
+        gameActive: prevMoves[prevMoves.length - 1].gameActive,
+        currentPlayer: prevPlayer,
+        gameState: prevMoves[prevMoves.length - 1].gameState,
+        history: prevMoves,
       };
     case ACTION.RESTART:
       return initialState;
@@ -71,4 +87,8 @@ export function getGameActive() {
 
 export function getGameState() {
   return store.getState().gameState;
+}
+
+export function getGameHistory() {
+  return store.getState().history;
 }
