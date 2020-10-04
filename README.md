@@ -15,3 +15,8 @@ Repository for a [Dev.to article](https://dev.to/bornasepic/pure-and-simple-tic-
     => In basic, this repo have adapt requirements. So next step just clean up, architect this and add some interesting features to make it awesome.
 
 ## Step 3: Issue checklist
+
+    3.1 Complex State
+        -> need state management
+
+        3.1.1: DONE Basic (12h53am - 1h50am)
